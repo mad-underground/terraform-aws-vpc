@@ -7,12 +7,12 @@ default_regex = re.compile('^default[\s]*=[\s]*(.*)$')
 validation_regex = re.compile('^validation[\s]*\{[\s]*$')
 end_regex = re.compile('^.*\}$')
 
-with open('new_variables.tf', 'w') as write_f:
+with open('variables.tf', 'w') as write_f:
     write_f.write('variable "vpc" {\n')
     write_f.write('  description = "VPC to be created"\n')
     write_f.write('  type = object({\n')
 
-    with open('variables.tf', encoding="utf-8") as read_f:
+    with open('variables.tf.orig', encoding="utf-8") as read_f:
         new_line = {
             "variable_name": None,
             "description": None,
@@ -66,4 +66,4 @@ with open('new_variables.tf', 'w') as write_f:
                 write_f.write('\n')
 
     write_f.write('  })\n')
-    write_f.write('}')
+    write_f.write('}\n')

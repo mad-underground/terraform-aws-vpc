@@ -4,16 +4,16 @@ variable_regex = re.compile('var.([a-zA-Z_0-9]*)[\W|\s]*')
 
 files_to_process = [
     {
-        'source_file': 'main.tf',
-        'destination_file': 'new_main.tf'
+        'source_file': 'main.tf.orig',
+        'destination_file': 'main.tf'
     },
     {
-        'source_file': 'vpc-flow-logs.tf',
-        'destination_file': 'new_vpc-flow-logs.tf'
+        'source_file': 'vpc-flow-logs.tf.orig',
+        'destination_file': 'vpc-flow-logs.tf'
     },
     {
-        'source_file': 'outputs.tf',
-        'destination_file': 'new_outputs.tf'
+        'source_file': 'outputs.tf.orig',
+        'destination_file': 'outputs.tf'
     }
 ]
 
