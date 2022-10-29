@@ -8,6 +8,10 @@ validation_regex = re.compile('^validation[\s]*\{[\s]*$')
 end_regex = re.compile('^.*\}$')
 
 with open('new_variables.tf', 'w') as write_f:
+    write_f.write('variable "vpc" {\n')
+    write_f.write('  description = "VPC to be created"\n')
+    write_f.write('  type = object({\n')
+
     with open('variables.tf', encoding="utf-8") as read_f:
         new_line = {
             "variable_name": None,
@@ -36,13 +40,15 @@ with open('new_variables.tf', 'w') as write_f:
             elif default_match:
                 new_line['default'] = default_match.group(1).strip()
                 if new_line['default'] == '[':
+                    new_line['default'] += '\n'
                     isMultiLineDefault = True
                     isOpenSquareBracket = True
                 elif new_line['default'] == '{':
+                    new_line['default'] += '\n'
                     isMultiLineDefault = True
                     isOpenCurlyBracket = True
             elif isMultiLineDefault:
-                new_line['default'] += f'\n{line}'
+                new_line['default'] += f'  {line}'
                 if line.strip() == ']' and isOpenSquareBracket:
                     isMultiLineDefault = False
                     isOpenSquareBracket = False
@@ -51,11 +57,13 @@ with open('new_variables.tf', 'w') as write_f:
                     isOpenSquareBracket = False
             elif validation_match:
                 isValidationBlock = True
-                print('validation_match')
             elif isValidationBlock:
                 if line.strip() == '}':
                     isValidationBlock = False
             elif end_match:
-                write_f.write(f'# {new_line["description"]}\n')
-                write_f.write(f'{new_line["variable_name"]} = optional({new_line["type"]}, {new_line["default"]})\n')
+                write_f.write(f'    # {new_line["description"]}\n')
+                write_f.write(f'    {new_line["variable_name"]} = optional({new_line["type"]}, {new_line["default"].rstrip()})\n')
                 write_f.write('\n')
+
+    write_f.write('  })\n')
+    write_f.write('}')
