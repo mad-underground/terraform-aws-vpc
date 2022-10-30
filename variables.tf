@@ -1,5 +1,5 @@
 variable "vpc" {
-  description = "VPC to be created"
+  description = "VPC resources to be created"
   type = object({
     # "Controls if VPC should be created (it affects almost all resources)"
     create_vpc = optional(bool, true)
