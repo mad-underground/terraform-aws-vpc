@@ -544,3 +544,58 @@ output "name" {
   description = "The name of the VPC specified as argument to this module"
   value       = var.vpc.name
 }
+
+output "database_subnets_managed_prefix_list_ids" {
+  description = "Managed prefix list ids for database subnets"
+  value = {
+    IPv4 = try(aws_ec2_managed_prefix_list.database_subnets["IPv4"].id, "")
+    IPv6 = try(aws_ec2_managed_prefix_list.database_subnets["IPv6"].id, "")
+  }
+}
+
+output "elasticache_subnets_managed_prefix_list_ids" {
+  description = "Managed prefix list ids for elasticache subnets"
+  value = {
+    IPv4 = try(aws_ec2_managed_prefix_list.elasticache_subnets["IPv4"].id, "")
+    IPv6 = try(aws_ec2_managed_prefix_list.elasticache_subnets["IPv6"].id, "")
+  }
+}
+
+output "intra_subnets_managed_prefix_list_ids" {
+  description = "Managed prefix list ids for intra subnets"
+  value = {
+    IPv4 = try(aws_ec2_managed_prefix_list.intra_subnets["IPv4"].id, "")
+    IPv6 = try(aws_ec2_managed_prefix_list.intra_subnets["IPv6"].id, "")
+  }
+}
+
+output "outpost_subnets_managed_prefix_list_ids" {
+  description = "Managed prefix list ids for outpost subnets"
+  value = {
+    IPv4 = try(aws_ec2_managed_prefix_list.outpost_subnets["IPv4"].id, "")
+    IPv6 = try(aws_ec2_managed_prefix_list.outpost_subnets["IPv6"].id, "")
+  }
+}
+
+output "private_subnets_managed_prefix_list_ids" {
+  description = "Managed prefix list ids for private subnets"
+  value = {
+    IPv4 = try(aws_ec2_managed_prefix_list.private_subnets["IPv4"].id, "")
+    IPv6 = try(aws_ec2_managed_prefix_list.private_subnets["IPv6"].id, "")
+  }
+}
+
+output "public_subnets_managed_prefix_list_ids" {
+  description = "Managed prefix list ids for public subnets"
+  value = {
+    IPv4 = try(aws_ec2_managed_prefix_list.public_subnets["IPv4"].id, "")
+    IPv6 = try(aws_ec2_managed_prefix_list.public_subnets["IPv6"].id, "")
+  }
+}
+output "redshift_subnets_managed_prefix_list_ids" {
+  description = "Managed prefix list ids for redshift subnets"
+  value = {
+    IPv4 = try(aws_ec2_managed_prefix_list.redshift_subnets["IPv4"].id, "")
+    IPv6 = try(aws_ec2_managed_prefix_list.redshift_subnets["IPv6"].id, "")
+  }
+}
